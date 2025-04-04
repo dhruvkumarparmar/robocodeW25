@@ -13,7 +13,6 @@ import net.sf.robocode.io.Logger;
 import net.sf.robocode.settings.ISettingsManager;
 import net.sf.robocode.ui.IWindowManager;
 import net.sf.robocode.util.JavaVersion;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -62,18 +61,11 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 	private void setCpuConstant() {
 		long count = 0;
 		double d = 0;
+
 		long start = System.currentTimeMillis();
 
 		while (System.currentTimeMillis() - start < TEST_PERIOD_MILLIS) {
-			double rand1 = ThreadLocalRandom.current().nextDouble();
-			double rand2 = ThreadLocalRandom.current().nextDouble();
-			double rand3 = ThreadLocalRandom.current().nextDouble();
-
-			d += Math.hypot(
-					Math.sqrt(Math.abs(log(Math.atan(rand1)))),
-					Math.cbrt(Math.abs(rand2 * 10))
-			) / exp(rand3);
-
+			d += Math.hypot(Math.sqrt(Math.abs(log(Math.atan(Math.random())))), Math.cbrt(Math.abs(Math.random() * 10))) / exp(Math.random());
 			count++;
 		}
 
@@ -84,7 +76,6 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 
 		cpuConstant = Math.max(1, (long) (1000000.0 * APPROXIMATE_CYCLES_ALLOWED * TEST_PERIOD_MILLIS / count));
 	}
-
 
 	private void setStatus(String message) {
 		IWindowManager windowManager = Container.getComponent(IWindowManager.class);
