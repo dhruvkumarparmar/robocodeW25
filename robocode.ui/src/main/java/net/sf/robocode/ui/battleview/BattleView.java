@@ -35,6 +35,8 @@ import java.awt.geom.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import static java.lang.Math.*;
+
+import java.security.SecureRandom;
 import java.util.Random;
 
 
@@ -244,7 +246,7 @@ public class BattleView extends Canvas {
 	private void createGroundImage() {
 		// Reinitialize ground tiles
 
-		Random r = new Random(); // independent
+		SecureRandom r = new SecureRandom(); // independent
 
 		final int NUM_HORZ_TILES = battleField.getWidth() / groundTileWidth + 1;
 		final int NUM_VERT_TILES = battleField.getHeight() / groundTileHeight + 1;
