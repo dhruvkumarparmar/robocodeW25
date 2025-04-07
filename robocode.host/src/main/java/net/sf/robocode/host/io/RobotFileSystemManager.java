@@ -294,8 +294,16 @@ public class RobotFileSystemManager {
 				is = null;
 				os = null;
 				try {
+					File destFile = new File(parent, filename);
+
+					String parentCanonicalPath = parent.getCanonicalPath();
+					String destFileCanonicalPath = destFile.getCanonicalPath();
+
+					if(!destFileCanonicalPath.startsWith(parentCanonicalPath + File.separator)){
+						throw new IOException("Blocked path traversal attempt: '" + filename + "' resolves outside of target directory.");
+					}
 					is = jarFile.getInputStream(jarEntry);
-					os = new FileOutputStream(new File(parent, filename));
+					os = new FileOutputStream(destFile);
 					copyStream(is, os);
 				} finally {
 					FileUtil.cleanupStream(is);
