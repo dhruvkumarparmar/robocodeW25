@@ -59,17 +59,14 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 		setStatus("");
 	}
 
+	@SuppressWarnings("java:S2245")
 	private void setCpuConstant() {
 		long count = 0;
 		double d = 0;
 		long start = System.currentTimeMillis();
-
-		// Secure random initialization with justification
-
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 
 		while (System.currentTimeMillis() - start < TEST_PERIOD_MILLIS) {
-			// Single random call reused for all operations (better performance)
 			double rand = random.nextDouble();
 			d += Math.hypot(
 					Math.sqrt(Math.abs(log(Math.atan(rand)))),
@@ -84,7 +81,6 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 
 		cpuConstant = Math.max(1, (long) (1000000.0 * APPROXIMATE_CYCLES_ALLOWED * TEST_PERIOD_MILLIS / count));
 	}
-
 	private void setStatus(String message) {
 		IWindowManager windowManager = Container.getComponent(IWindowManager.class);
 
