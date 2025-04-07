@@ -59,7 +59,7 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 		setStatus("");
 	}
 
-	@SuppressWarnings("java:S2245")
+	@SuppressWarnings("java:S2245") // Used only for CPU performance testing
 	private void setCpuConstant() {
 		long count = 0;
 		double d = 0;
@@ -81,6 +81,7 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 
 		cpuConstant = Math.max(1, (long) (1000000.0 * APPROXIMATE_CYCLES_ALLOWED * TEST_PERIOD_MILLIS / count));
 	}
+
 	private void setStatus(String message) {
 		IWindowManager windowManager = Container.getComponent(IWindowManager.class);
 
