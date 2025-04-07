@@ -102,8 +102,23 @@ public class BattlesRunner {
 
 					lastResults = null;
 					engine.runBattle(specification, true);
+
+					// Wait until lastResults is set, with timeout
+					int waitTime = 0;
+					while (lastResults == null && waitTime < 3000) {
+						try {
+							Thread.sleep(100);
+							waitTime += 100;
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							break;
+						}
+					}
+
 					if (lastResults != null && lastResults.length > 1) {
 						dumpResults(outtxt, lastResults, rumbleBattle, melee);
+					} else {
+						System.err.println("Warning: Battle did not produce valid results.");
 					}
 				}
 			} else {
