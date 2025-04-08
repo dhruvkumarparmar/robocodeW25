@@ -58,18 +58,20 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 		setStatus("");
 	}
 
+	@SuppressWarnings("java:S2245") // Not security-sensitive: CPU benchmarking only
 	private void setCpuConstant() {
 		long count = 0;
 		double d = 0;
 
 		long start = System.currentTimeMillis();
+		ThreadLocalRandom random = ThreadLocalRandom.current();
 
 		while (System.currentTimeMillis() - start < TEST_PERIOD_MILLIS) {
-			d += Math.hypot(Math.sqrt(Math.abs(log(Math.atan(Math.random())))), Math.cbrt(Math.abs(Math.random() * 10))) / exp(Math.random());
+
+      
 			count++;
 		}
 
-		// to cheat optimizer, almost never happen
 		if (d == 0.0) {
 			Logger.logMessage("bingo!");
 		}
