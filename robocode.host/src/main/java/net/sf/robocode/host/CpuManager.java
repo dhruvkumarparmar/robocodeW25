@@ -59,7 +59,7 @@ public class CpuManager implements ICpuManager { // NO_UCD (use default)
 		setStatus("");
 	}
 
-	@SuppressWarnings("java:S2245") // Not security-sensitive: Used only for CPU performance testing
+	@SuppressWarnings("java:S2245") // Not security-sensitive: CPU benchmarking only
 	private void setCpuConstant() {
 		long count = 0;
 		double d = 0;
